@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nahuel Ramirez | Consultoría Empresarial para PyMEs</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --bg-soft: #10182e;
+      --card: rgba(255,255,255,0.08);
+      --card-border: rgba(255,255,255,0.12);
+      --text: #eef2ff;
+      --muted: #b7c1dd;
+      --primary: #3b82f6;
+      --primary-2: #60a5fa;
+      --accent: #22c55e;
+      --accent-2: #93c5fd;
+      --shadow: 0 18px 45px rgba(0,0,0,0.28);
+      --radius: 22px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(59,130,246,0.25), transparent 30%),
+        radial-gradient(circle at 90% 20%, rgba(34,197,94,0.12), transparent 20%),
+        linear-gradient(180deg, #08101f 0%, #0b1020 45%, #111827 100%);
+      color: var(--text);
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    .container {
+      width: min(var(--max), calc(100% - 2rem));
+      margin: 0 auto;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(16px);
+      background: rgba(8, 16, 31, 0.72);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1rem 0;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+
+    .brand strong {
+      font-size: 1rem;
+      letter-spacing: 0.04em;
+    }
+
+    .brand span {
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .nav-links a:hover { color: #fff; }
+
+    .hero {
+      padding: 5.5rem 0 4rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.86rem;
+      color: #dbeafe;
+      background: rgba(59,130,246,0.14);
+      border: 1px solid rgba(96,165,250,0.25);
+      padding: 0.6rem 0.9rem;
+      border-radius: 999px;
+      margin-bottom: 1.1rem;
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 5vw, 4.8rem);
+      line-height: 0.96;
+      margin: 0 0 1rem;
+      letter-spacing: -0.04em;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      line-height: 1.75;
+      color: var(--muted);
+      max-width: 62ch;
+      margin: 0 0 1.5rem;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1.75rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.95rem 1.25rem;
+      border-radius: 14px;
+      font-weight: 700;
+      transition: 0.22s ease;
+      border: 1px solid transparent;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      color: white;
+      box-shadow: var(--shadow);
+    }
+
+    .btn-primary:hover { transform: translateY(-2px); }
+
+    .btn-secondary {
+      border-color: rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+    }
+    .btn-whatsapp {
+      background: linear-gradient(135deg, #16a34a, var(--accent));
+      color: white;
+      box-shadow: 0 18px 32px rgba(34,197,94,0.22);
+    }
+
+    .btn-secondary:hover { background: rgba(255,255,255,0.08); }
+
+    .hero-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
+      border: 1px solid var(--card-border);
+      border-radius: 28px;
+      padding: 1.4rem;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: auto -10% -30% auto;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(59,130,246,0.25), transparent 70%);
+      pointer-events: none;
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .metric {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+      padding: 1rem;
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 1.8rem;
+      margin-bottom: 0.25rem;
+      color: #fff;
+    }
+
+    .metric span {
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.45;
+    }
+
+    section {
+      padding: 2rem 0 4rem;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: end;
+      margin-bottom: 1.8rem;
+    }
+
+    .section-head h2 {
+      font-size: clamp(1.9rem, 3vw, 3rem);
+      margin: 0;
+      letter-spacing: -0.03em;
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 56ch;
+      line-height: 1.7;
+    }
+
+    .grid-3, .grid-2, .grid-4 {
+      display: grid;
+      gap: 1.2rem;
+    }
+
+    .grid-2 { grid-template-columns: repeat(2, 1fr); }
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 1.4rem;
+      box-shadow: var(--shadow);
+    }
+
+    .card h3 {
+      margin: 0 0 0.7rem;
+      font-size: 1.15rem;
+    }
+
+    .card p, .card li {
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 0.98rem;
+    }
+
+    .card ul {
+      margin: 0;
+      padding-left: 1.1rem;
+    }
+
+    .stage {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stage .badge {
+      display: inline-flex;
+      margin-bottom: 0.9rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.45rem 0.7rem;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      color: #dbeafe;
+    }
+
+    .stage.stage-1 { border-color: rgba(244,114,182,0.18); }
+    .stage.stage-2 { border-color: rgba(34,197,94,0.2); }
+
+    .stage-connector {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: var(--accent-2);
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1rem;
+    }
+
+    .timeline .step {
+      padding: 1.2rem;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      position: relative;
+    }
+
+    .step-number {
+      width: 2.1rem;
+      height: 2.1rem;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      color: white;
+      font-weight: 800;
+      margin-bottom: 0.85rem;
+    }
+
+    .pricing .price {
+      font-size: 2rem;
+      font-weight: 800;
+      margin: 0.3rem 0 0.7rem;
+    }
+
+    .pricing .tag {
+      display: inline-block;
+      padding: 0.45rem 0.7rem;
+      border-radius: 999px;
+      background: rgba(34,197,94,0.14);
+      color: #dcfce7;
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+    }
+
+    .pricing ul {
+      min-height: 220px;
+    }
+
+    .pricing.featured {
+      border-color: rgba(96,165,250,0.45);
+      transform: translateY(-8px);
+    }
+
+    .quote {
+      padding: 2rem;
+      text-align: center;
+      border-radius: 28px;
+      background: linear-gradient(135deg, rgba(59,130,246,0.14), rgba(34,197,94,0.08));
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: var(--shadow);
+    }
+
+    .quote p {
+      margin: 0;
+      font-size: clamp(1.3rem, 2.5vw, 2rem);
+      line-height: 1.5;
+      letter-spacing: -0.02em;
+    }
+
+    .contact-box {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 1.2rem;
+      align-items: stretch;
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 0.8rem;
+      margin-top: 1rem;
+    }
+
+    .contact-item {
+      padding: 0.95rem 1rem;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: var(--muted);
+    }
+
+    .footer {
+      padding: 1rem 0 2.5rem;
+      color: rgba(255,255,255,0.55);
+      font-size: 0.92rem;
+      text-align: center;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 1024px) {
+      .hero-grid,
+      .contact-box,
+      .grid-3,
+      .timeline {
+        grid-template-columns: 1fr;
+      }
+
+      .grid-2 { grid-template-columns: 1fr; }
+      .grid-4 { grid-template-columns: repeat(2, 1fr); }
+      .pricing.featured { transform: none; }
+      .stage-connector { display: none; }
+    }
+
+    @media (max-width: 720px) {
+      .nav-inner { flex-direction: column; align-items: flex-start; }
+      .nav-links { gap: 0.7rem; font-size: 0.9rem; }
+      .hero { padding-top: 4.2rem; }
+      .grid-4 { grid-template-columns: 1fr; }
+      .metric-grid { grid-template-columns: 1fr; }
+      .section-head { flex-direction: column; align-items: flex-start; }
+      .cta-row { width: 100%; }
+      .btn { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="container nav-inner">
+      <div class="brand">
+        <strong>Nahuel Ramirez</strong>
+        <span>Consultoría Empresarial para PyMEs</span>
+      </div>
+      <div class="nav-links">
+        <a href="#servicio">Servicio</a>
+        <a href="#etapas">Etapas</a>
+        <a href="#metodologia">Metodología</a>
+        <a href="#planes">Planes</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="container hero-grid">
+      <div class="reveal">
+        <div class="eyebrow">Escalamiento PyME · Etapa 1 → Etapa 2</div>
+        <h1>Ordená tu PyME para crecer con estructura, foco y resultados.</h1>
+        <p>
+          Acompaño a dueños y equipos de PyMEs que hoy funcionan con esfuerzo, intuición y urgencias,
+          pero que necesitan pasar a una etapa de mayor orden, previsibilidad y escalabilidad.
+        </p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#contacto">Solicitar una reunión</a>
+          <a class="btn btn-secondary" href="#planes">Ver planes de trabajo</a>
+        </div>
+      </div>
+
+      <div class="hero-card reveal">
+        <h3 style="margin-top:0; font-size:1.35rem;">Una propuesta pensada para PyMEs que quieren escalar</h3>
+        <p style="margin:0; color:var(--muted); line-height:1.7;">
+          Integrando consultoría empresarial, mirada sistémica, coaching profesional y experiencia en transformación digital.
+        </p>
+        <div class="metric-grid">
+          <div class="metric">
+            <strong>+4 años</strong>
+            <span>liderando mejoras operativas, tecnológicas y de procesos.</span>
+          </div>
+          <div class="metric">
+            <strong>20%</strong>
+            <span>de mejora reportada en tiempos operativos en proyectos previos.</span>
+          </div>
+          <div class="metric">
+            <strong>SAP + Agile</strong>
+            <span>visión técnica y de negocio para ordenar y ejecutar.</span>
+          </div>
+          <div class="metric">
+            <strong>Coaching</strong>
+            <span>acompañamiento humano para sostener el cambio.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section id="servicio">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <h2>¿Para quién es este servicio?</h2>
+        </div>
+        <p>
+          Diseñado para empresas que ya validaron su actividad, pero necesitan dejar atrás la improvisación para construir una base sólida de crecimiento.
+        </p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card reveal">
+          <h3>Te sirve si hoy sentís que…</h3>
+          <ul>
+            <li>La empresa depende demasiado de vos.</li>
+            <li>Faltan procesos, orden y seguimiento.</li>
+            <li>Las decisiones se toman más por intuición que por información.</li>
+            <li>Hay esfuerzo, pero no siempre resultados sostenibles.</li>
+          </ul>
+        </article>
+        <article class="card reveal">
+          <h3>Lo que necesitás ahora</h3>
+          <ul>
+            <li>Claridad sobre prioridades reales.</li>
+            <li>Un plan de acción simple y ejecutable.</li>
+            <li>Indicadores para gestionar mejor.</li>
+            <li>Acompañamiento para avanzar con foco.</li>
+          </ul>
+        </article>
+        <article class="card reveal">
+          <h3>Lo que trabajamos juntos</h3>
+          <ul>
+            <li>Modelo de negocio y estructura operativa.</li>
+            <li>Ventas, procesos y experiencia del cliente.</li>
+            <li>Roles, liderazgo y delegación.</li>
+            <li>Transformación digital orientada a resultados.</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="etapas">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <h2>De Etapa 1 a Etapa 2</h2>
+        </div>
+        <p>
+          La diferencia entre una PyME que sobrevive y una que escala no suele estar en trabajar más, sino en cómo organiza su operación, su liderazgo y su crecimiento.
+        </p>
+      </div>
+
+      <div class="grid-3" style="grid-template-columns: 1fr auto 1fr; align-items: stretch;">
+        <article class="card stage stage-1 reveal">
+          <span class="badge">Etapa 1</span>
+          <h3>Supervivencia / Desorden</h3>
+          <ul>
+            <li>Todo pasa por el dueño.</li>
+            <li>Hay cuellos de botella frecuentes.</li>
+            <li>Las ventas y la operación son poco previsibles.</li>
+            <li>No hay indicadores claros.</li>
+            <li>El crecimiento genera más caos que alivio.</li>
+          </ul>
+        </article>
+
+        <div class="stage-connector reveal">→</div>
+
+        <article class="card stage stage-2 reveal">
+          <span class="badge">Etapa 2</span>
+          <h3>Orden / Escalamiento</h3>
+          <ul>
+            <li>Procesos definidos y repetibles.</li>
+            <li>Roles claros y mejor delegación.</li>
+            <li>Seguimiento de resultados con métricas simples.</li>
+            <li>Mayor foco comercial y operativo.</li>
+            <li>Base sólida para crecer de manera sostenida.</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="metodologia">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <h2>Metodología de trabajo</h2>
+        </div>
+        <p>
+          Un enfoque práctico, profesional y accionable: claridad para decidir, estructura para ejecutar y seguimiento para sostener resultados.
+        </p>
+      </div>
+
+      <div class="timeline">
+        <div class="step reveal">
+          <div class="step-number">1</div>
+          <h3>Diagnóstico 360°</h3>
+          <p>Analizamos negocio, procesos, ventas, equipo y puntos críticos para entender dónde está frenado el crecimiento.</p>
+        </div>
+        <div class="step reveal">
+          <div class="step-number">2</div>
+          <h3>Foco estratégico</h3>
+          <p>Definimos prioridades reales, evitando dispersión y concentrando energía en lo que más impacto genera.</p>
+        </div>
+        <div class="step reveal">
+          <div class="step-number">3</div>
+          <h3>Plan de acción</h3>
+          <p>Bajamos objetivos a acciones concretas de 7, 15 y 30 días para transformar ideas en ejecución.</p>
+        </div>
+        <div class="step reveal">
+          <div class="step-number">4</div>
+          <h3>Implementación</h3>
+          <p>Acompañamiento cercano para ordenar, medir, ajustar y sostener el cambio con el equipo.</p>
+        </div>
+        <div class="step reveal">
+          <div class="step-number">5</div>
+          <h3>Medición</h3>
+          <p>Diseñamos indicadores simples para tomar decisiones con información y no solo por intuición.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <h2>Áreas de impacto</h2>
+        </div>
+        <p>
+          Una mirada integral para que la empresa gane orden interno y al mismo tiempo mejore su capacidad de crecer hacia afuera.
+        </p>
+      </div>
+
+      <div class="grid-4">
+        <article class="card reveal">
+          <h3>Procesos y eficiencia</h3>
+          <p>Detectamos fricciones operativas, ordenamos circuitos y reducimos dependencia de tareas improvisadas.</p>
+        </article>
+        <article class="card reveal">
+          <h3>Ventas y gestión comercial</h3>
+          <p>Claridad en propuesta de valor, seguimiento comercial y organización del proceso de venta.</p>
+        </article>
+        <article class="card reveal">
+          <h3>Liderazgo y equipo</h3>
+          <p>Fortalecemos roles, conversaciones, compromiso y capacidad de delegación dentro de la empresa.</p>
+        </article>
+        <article class="card reveal">
+          <h3>Transformación digital</h3>
+          <p>Incorporamos herramientas, criterios y lógica de mejora continua para escalar con soporte tecnológico.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="planes">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <h2>Planes de acompañamiento</h2>
+        </div>
+        <p>
+          Podés usar estos planes como base comercial. Los valores son editables según la profundidad del servicio, el rubro y la etapa de la empresa.
+        </p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card pricing reveal">
+          <span class="tag">Plan Inicial</span>
+          <h3>Orden y claridad</h3>
+          <div class="price">4 sesiones / mes</div>
+          <ul>
+            <li>Diagnóstico general del negocio.</li>
+            <li>Priorización de problemas clave.</li>
+            <li>Plan de acción mensual.</li>
+            <li>Seguimiento ejecutivo.</li>
+            <li>Ideal para PyMEs en etapa inicial de ordenamiento.</li>
+          </ul>
+          <a class="btn btn-secondary" href="#contacto">Solicitar reunión</a>
+        </article>
+
+        <article class="card pricing featured reveal">
+          <span class="tag">Plan Crecimiento</span>
+          <h3>Escalamiento con estructura</h3>
+          <div class="price">6 a 8 sesiones / mes</div>
+          <ul>
+            <li>Trabajo sobre operación, ventas y liderazgo.</li>
+            <li>Reuniones estratégicas y de seguimiento.</li>
+            <li>Diseño de indicadores y tableros simples.</li>
+            <li>Definición de procesos prioritarios.</li>
+            <li>Ideal para empresas que ya venden y quieren escalar mejor.</li>
+          </ul>
+          <a class="btn btn-primary" href="#contacto">Solicitar reunión</a>
+        </article>
+
+        <article class="card pricing reveal">
+          <span class="tag">Plan Intensivo</span>
+          <h3>Transformación completa</h3>
+          <div class="price">A medida</div>
+          <ul>
+            <li>Acompañamiento semanal o quincenal.</li>
+            <li>Intervención integral sobre áreas críticas.</li>
+            <li>Trabajo con dueño y equipo.</li>
+            <li>Soporte en implementación y toma de decisiones.</li>
+            <li>Ideal para empresas en proceso de cambio profundo.</li>
+          </ul>
+          <a class="btn btn-secondary" href="#contacto">Solicitar reunión</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="quote reveal">
+        <p>“Tu empresa no necesita solamente más esfuerzo. Necesita estructura, dirección y decisiones claras para crecer de forma sostenible.”</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contacto">
+    <div class="container">
+      <div class="contact-box">
+        <div class="card reveal">
+          <h2 style="margin-top:0; font-size:2rem;">Hablemos de tu PyME</h2>
+          <p style="color:var(--muted); line-height:1.8;">
+            Si hoy sentís que tu empresa tiene potencial pero necesita orden para crecer, este servicio puede darte claridad, foco y una hoja de ruta concreta para avanzar.
+          </p>
+          <form id="contact-form" style="margin-top:1.2rem;">
+  		<input 
+    		type="email" 
+   		 name="user_email" 
+   		 placeholder="Tu correo electrónico" 
+    		required
+    		style="width:100%; padding:10px; margin-bottom:10px; border-radius:10px; border:none;"
+  		/>
+
+  		<textarea 
+    		name="message" 
+   		placeholder="Escribí tu mensaje"
+   		required
+    		style="width:100%; padding:10px; margin-bottom:10px; border-radius:10px; border:none; min-			height:100px;"
+  		>
+		</textarea>
+
+ 		<button class="btn btn-primary" type="submit" style="width:100%;">
+    		Enviar consulta
+  		</button>
+
+  		<p id="status" style="margin-top:10px; font-size:0.9rem;"></p>
+	  </form>
+        </div>
+
+        <div class="card reveal">
+          <h3 style="margin-top:0; font-size:1.4rem;">Sobre Mi</h3>
+          <ul>
+            <li>Coach Profesional (AACOP - FICOP)</li>
+            <li>Técnico en Informática</li>
+            <li>Consultor de Sistemas SAP</li>
+            <li>Certificado en Consultoría Empresarial y Ventas</li>
+            <li>Especialista en transformación digital y liderazgo ágil</li>
+          </ul>
+          <div class="cta-row" style="margin-top:1.2rem;">
+            <a class="btn btn-primary" href="https://calendar.app.google/whQmzSKUB1e6UE3X8"  target="_blank" rel="noopener">Agendá tu primer Reunión</a>
+	    <a class="btn btn-whatsapp" id="whatsappBtn" href="https://wa.me/5491134797315?text=Hola%20Nahuel%2C%20quiero%20consultarte%20por%20tu%20servicio%20de%20Consultoria%20para%20PyME." target="_blank" rel="noopener">Escribime ahora</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer container">
+     · Nahuel Ramirez · Consultoría Empresarial para PyMEs
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+  </script>
+
+	<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+<script>
+  (function () {
+    emailjs.init("bDOsDfgxjqPvJo9xd");
+  })();
+
+  document.getElementById("contact-form").addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const form = this;
+    const email = form.user_email.value.trim();
+    const message = form.message.value.trim();
+    const status = document.getElementById("status");
+
+    // Regex simple y efectiva para validar email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+    if (!emailRegex.test(email)) {
+      status.innerText = "❌ Ingresá un correo electrónico válido";
+      form.user_email.focus();
+      return;
+    }
+
+    if (message.length < 5) {
+      status.innerText = "❌ Escribí un mensaje válido";
+      form.message.focus();
+      return;
+    }
+
+    emailjs.send("service_4nuijli", "template_no72wwa", {
+      user_email: email,
+      message: message,
+      subject: "Consultoria"
+    })
+    .then(function () {
+      status.innerText = "✅ Mensaje enviado correctamente";
+      form.reset();
+
+      setTimeout(() => {
+        status.innerText = "";
+      }, 4000);
+    })
+    .catch(function (error) {
+      status.innerText = "❌ Error al enviar mensaje";
+      console.error(error);
+    });
+  });
+</script>
+</body>
+</html>
